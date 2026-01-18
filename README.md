@@ -1,6 +1,6 @@
 # This Wasn't in the PPT
 
-A Jekyll-based blog for Machine Learning and Artificial Intelligence articles, designed to be deployed on GitHub Pages.
+A Jekyll-based blog for Machine Learning, Data Science and Artificial Intelligence articles, designed to be deployed on GitHub Pages.
 
 ## 🚀 Quick Start
 
