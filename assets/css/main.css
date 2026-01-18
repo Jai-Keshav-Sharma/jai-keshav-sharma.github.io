@@ -524,6 +524,19 @@ a:hover {
     margin-top: 20px;
 }
 
+/* Giscus widget custom styling - fix light text on light background */
+.giscus-container .gsc-comments,
+.giscus-container .gsc-reactions,
+.giscus-container .gsc-header,
+.giscus-container .gsc-comment-count,
+.giscus-container .gsc-reaction-count {
+    color: var(--color-text) !important;
+}
+
+.giscus, .giscus-frame {
+    color-scheme: light;
+}
+
 .comments-notice {
     text-align: center;
     color: var(--color-text-light);
