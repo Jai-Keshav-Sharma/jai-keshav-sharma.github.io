@@ -5,6 +5,9 @@ url: "https://jai-keshav-sharma.github.io"
 baseurl: ""
 permalink: /:categories/:year/:month/:day/:title/
 
+# Google Analytics
+google_analytics: "G-LNHG9G1469"
+
 # Author
 author:
   name: "Jai Keshav Sharma"
