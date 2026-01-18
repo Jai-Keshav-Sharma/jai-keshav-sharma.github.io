@@ -1,8 +1,8 @@
 # Site Settings
 title: "This Wasn't in the PPT"
 description: "A blog exploring Machine Learning and Artificial Intelligence"
-url: "" # Update with your GitHub Pages URL after deployment
-baseurl: "" # Leave empty for user/org site, or set repo name for project site
+url: "https://jai-keshav-sharma.github.io"
+baseurl: "/seo-blog-automation"
 permalink: /:categories/:year/:month/:day/:title/
 
 # Author
