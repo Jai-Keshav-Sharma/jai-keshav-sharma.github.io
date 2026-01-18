@@ -568,6 +568,16 @@ a:hover {
     line-height: 1.8;
 }
 
+.page-content h2 {
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+}
+
+.page-content h3 {
+    margin-top: 1.75em;
+    margin-bottom: 0.5em;
+}
+
 .contact-info {
     display: flex;
     flex-direction: column;
