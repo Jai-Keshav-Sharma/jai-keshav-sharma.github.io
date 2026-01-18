@@ -1,0 +1,69 @@
+# Site Settings
+title: "This Wasn't in the PPT"
+description: "A blog exploring Machine Learning and Artificial Intelligence"
+url: "" # Update with your GitHub Pages URL after deployment
+baseurl: "" # Leave empty for user/org site, or set repo name for project site
+permalink: /:categories/:year/:month/:day/:title/
+
+# Author
+author:
+  name: "Jai Keshav Sharma"
+  email: "ksharma9719@gmail.com"
+  avatar: "/assets/images/avatar-placeholder.svg"
+  bio: "Exploring the frontiers of AI and Machine Learning"
+  linkedin: "https://www.linkedin.com/in/jai-keshav-sharma/"
+  github: "https://github.com/Jai-Keshav-Sharma/"
+
+# Build Settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  math_engine: mathjax
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Categories
+categories:
+  - machine-learning
+  - artificial-intelligence
+
+# Collections (optional)
+collections:
+  posts:
+    output: true
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Jai Keshav Sharma"
+      comments: true
+
+# Giscus Configuration (Update after enabling GitHub Discussions)
+giscus:
+  repo: "Jai-Keshav-Sharma/seo-blog-automation"
+  repo_id: "R_kgDOQtwvsw"
+  category: "Announcements"
+  category_id: "DIC_kwDOQtwvs84C1HJa"
+  mapping: "pathname"
+  reactions_enabled: "1"
+  emit_metadata: "0"
+  theme: "preferred_color_scheme"
+  lang: "en"
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules
+  - vendor

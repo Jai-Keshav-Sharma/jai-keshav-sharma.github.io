@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <defs>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#grad4)"/>
+  
+  <!-- Balance scale -->
+  <line x1="400" y1="80" x2="400" y2="180" stroke="rgba(255,255,255,0.9)" stroke-width="4"/>
+  <circle cx="400" cy="80" r="15" fill="rgba(255,255,255,0.9)"/>
+  
+  <!-- Scale beam -->
+  <line x1="200" y1="180" x2="600" y2="180" stroke="rgba(255,255,255,0.9)" stroke-width="6"/>
+  
+  <!-- Left pan (Power) -->
+  <line x1="200" y1="180" x2="200" y2="230" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
+  <ellipse cx="200" cy="250" rx="80" ry="20" fill="rgba(255,255,255,0.8)"/>
+  <text x="200" y="300" fill="rgba(255,255,255,0.9)" font-size="18" text-anchor="middle" font-weight="bold">AI Power</text>
+  <text x="200" y="330" fill="rgba(255,255,255,0.7)" font-size="14" text-anchor="middle">⚡ Innovation</text>
+  
+  <!-- Right pan (Responsibility) -->
+  <line x1="600" y1="180" x2="600" y2="230" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
+  <ellipse cx="600" cy="250" rx="80" ry="20" fill="rgba(255,255,255,0.8)"/>
+  <text x="600" y="300" fill="rgba(255,255,255,0.9)" font-size="18" text-anchor="middle" font-weight="bold">Responsibility</text>
+  <text x="600" y="330" fill="rgba(255,255,255,0.7)" font-size="14" text-anchor="middle">⚖️ Ethics</text>
+  
+  <!-- Icons on pans -->
+  <text x="200" y="260" fill="#667eea" font-size="30" text-anchor="middle">🤖</text>
+  <text x="600" y="260" fill="#f5576c" font-size="30" text-anchor="middle">🛡️</text>
+  
+  <!-- Title -->
+  <text x="400" y="50" fill="rgba(255,255,255,0.9)" font-size="20" text-anchor="middle" font-weight="bold">Balancing AI Innovation with Ethics</text>
+</svg>
