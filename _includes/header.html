@@ -2,7 +2,8 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="{{ '/' | relative_url }}" class="site-logo">
-                {{ site.title }}
+                <img src="{{ '/assets/images/site logo.jpeg' | relative_url }}" alt="{{ site.title }}" class="site-logo-img">
+                <span class="site-logo-text">{{ site.title }}</span>
             </a>
             
             <button class="nav-toggle" aria-label="Toggle navigation">

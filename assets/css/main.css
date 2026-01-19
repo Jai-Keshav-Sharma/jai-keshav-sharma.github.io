@@ -130,11 +130,30 @@ a:hover {
     color: var(--color-navbar-text);
     text-decoration: none;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.site-logo-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.site-logo-text {
+    display: inline-block;
 }
 
 .site-logo:hover {
     color: var(--color-navbar-text);
     opacity: 0.9;
+}
+
+.site-logo:hover .site-logo-img {
+    border-color: rgba(255, 255, 255, 0.6);
 }
 
 .nav-menu {
