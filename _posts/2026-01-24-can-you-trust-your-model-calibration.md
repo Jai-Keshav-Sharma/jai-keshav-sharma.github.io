@@ -5,7 +5,7 @@ date: 2026-01-24
 categories: [machine-learning]
 tags: [model-calibration, platt-scaling, probability, classification]
 author: "Your Name"
-image: image/2026-01-24-can-you-trust-your-model-calibration/calibration_cover.png
+image: assets/images/posts/calibration_cover.png
 description: "Your model says it's 90% confident. Reality says it's wrong 30% of the time. Let's fix that."
 ---
 
