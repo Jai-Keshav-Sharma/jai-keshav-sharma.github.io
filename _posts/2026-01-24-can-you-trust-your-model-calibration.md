@@ -68,7 +68,7 @@ But if your model is overconfident like our friend ResNet? You might be wasting 
 
 ---
 
-## Enter: Platt Scaling (The Hero We Needed)
+## Platt Scaling: Teaching Your Model Some Humility
 
 Alright, enough doom and gloom. Let's fix this.
 
