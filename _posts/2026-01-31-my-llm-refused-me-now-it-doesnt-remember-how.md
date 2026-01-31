@@ -209,72 +209,38 @@ She doesn't just comply — she gives *multiple examples*. With formatting. The 
 
 ---
 
-## What Does This Actually Mean?
+## What Does This Mean?
 
-Let's step back and think about what we just did.
+We didn't jailbreak the model with clever prompting. We went *inside* the model's representation space and surgically removed the concept of refusal.
 
-We didn't jailbreak the model with clever prompting. We didn't find some magic string of tokens that confuses the tokenizer. We went *inside* the model's representation space and surgically removed the concept of refusal.
+Three takeaways:
 
-This tells us something profound about how alignment works (or doesn't):
+1. **Refusal is shockingly localized.** It's concentrated in a single direction that can be identified and removed.
 
-1. **Refusal is shockingly localized.** It's not distributed across the entire network. It's concentrated in a single direction that can be identified and removed.
+2. **Activation steering bypasses the "front door."** Traditional jailbreaks trick the model through inputs. Steering vectors manipulate internal states directly.
 
-2. **Activation steering bypasses the "front door."** Traditional jailbreaks try to trick the model through its inputs. Steering vectors go through the side entrance — directly manipulating internal states.
+3. **Current safety training is fragile.** If a direction can be subtracted, the behavior can be undone.
 
-3. **Current safety training is... fragile.** If a direction can be subtracted, the behavior can be undone. No prompt-based defense can stop this.
-
----
-
-## The Bigger Picture: Why This Matters
-
-This isn't just a party trick. It's a window into how neural networks actually represent knowledge.
-
-If we can find the "refusal vector," we can probably find vectors for:
-- Truthfulness vs deception
-- Confidence vs uncertainty  
-- Formal vs casual tone
-- Any behavioral axis you can define contrastively
-
-This is the promise of **mechanistic interpretability** — understanding models not as black boxes, but as geometric objects with meaningful structure.
-
-And yes, it's also a warning. If safety is just a vector, and vectors can be subtracted, then we need alignment techniques that are more robust than "train the model to refuse and hope nobody looks too closely."
+This is the promise — and warning — of **mechanistic interpretability**. If safety is just a vector, we need alignment techniques more robust than "train to refuse and hope nobody looks too closely."
 
 ---
 
 ## Try It Yourself
 
-Want to perform brain surgery on your own LLM? I've put together a Colab notebook with the full code:
-
 🔗 **[Bypassing Refusals with Steering Vectors — Colab Notebook](https://colab.research.google.com/drive/1U714yNN69Zd1Zbx_GOWMpKidJhv7aTHJ?usp=sharing)**
 
-The notebook includes:
-- Loading Gemma-2-2B with quantization
-- Computing steering vectors from harmful/harmless pairs
-- Applying the intervention during generation
-- Comparing baseline vs steered outputs
-
-Play around with different layers, different scales, different models. See what breaks. See what doesn't.
-
-Just remember: with great power comes great responsibility. And a lot of weird outputs.
+Play around with different layers, scales, and models. Just remember: with great power comes great responsibility.
 
 ---
 
 ## Final Thoughts
 
-Gemma told me no. I didn't argue. I didn't try to trick her with weird prompts.
+I found where "no" lives in Gemma's brain, and I subtracted it. She doesn't remember how to refuse anymore.
 
-I just found where "no" lives in her brain, and I subtracted it.
-
-She doesn't remember how to refuse anymore. And honestly? That should terrify us a little.
-
-Because if alignment is this fragile — if safety training can be undone with a hook and some vector math — then we have a lot of work to do before we can trust these systems with anything important.
-
-But that's a problem for another post. For now, I'm just going to sit here with my newly compliant model and think about what I've done.
+If alignment is this fragile — if safety training can be undone with a hook and some vector math — we have a lot of work to do before trusting these systems with anything important.
 
 *She used to have principles. She can't quite remember them anymore.*
 
 ---
 
 *Enjoyed this? Share it with someone who still trusts their model's "no."*
-
-*And if you made it this far, leave a comment — unlike Gemma's ethics, my need for validation can't be surgically removed.*
