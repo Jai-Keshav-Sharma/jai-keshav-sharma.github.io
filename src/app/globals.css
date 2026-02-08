@@ -199,10 +199,21 @@ a:hover {
   opacity: 0.9;
 }
 
+/* Hide mobile nav toggle by default (desktop) */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--color-navbar-text);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
 .nav-menu {
   display: flex;
   list-style: none;
   gap: 10px;
+  align-items: center;
 }
 
 .nav-link {
@@ -447,7 +458,7 @@ a:hover {
   gap: 20px;
   align-items: flex-start;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: var(--color-code-bg);
   border-radius: 5px;
 }
 
@@ -495,12 +506,13 @@ a:hover {
 
 .tag {
   display: inline-block;
-  background-color: #f0f0f0;
+  background-color: var(--color-code-bg);
   padding: 3px 10px;
   border-radius: 3px;
   font-size: 0.85rem;
   margin-right: 5px;
   color: var(--color-text-light);
+  border: 1px solid var(--color-border);
 }
 
 /* Comments Section */
