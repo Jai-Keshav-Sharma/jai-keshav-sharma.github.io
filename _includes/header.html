@@ -26,21 +26,113 @@
                         <i class="fa-solid fa-envelope"></i> Contact
                     </a>
                 </li>
+                <li class="nav-item">
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fa-solid fa-moon" id="theme-icon"></i>
+                    </button>
+                </li>
             </ul>
         </div>
     </nav>
 </header>
 
 <script>
-    // Mobile nav toggle
-    document.addEventListener('DOMContentLoaded', function() {
-        const toggle = document.querySelector('.nav-toggle');
-        const menu = document.querySelector('.nav-menu');
+    // Theme Toggle with View Transitions API
+    (function() {
+        const THEME_KEY = 'theme';
+        const DARK_CLASS = 'dark';
         
-        if (toggle) {
-            toggle.addEventListener('click', function() {
-                menu.classList.toggle('active');
-            });
+        // Get saved theme or system preference
+        function getPreferredTheme() {
+            const saved = localStorage.getItem(THEME_KEY);
+            if (saved) return saved;
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
-    });
+        
+        // Apply theme immediately (before paint)
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add(DARK_CLASS);
+            } else {
+                document.documentElement.classList.remove(DARK_CLASS);
+            }
+            updateIcon(theme);
+        }
+        
+        // Update the toggle icon
+        function updateIcon(theme) {
+            const icon = document.getElementById('theme-icon');
+            if (icon) {
+                icon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+            }
+        }
+        
+        // Apply theme on load
+        applyTheme(getPreferredTheme());
+        
+        // Initialize toggle after DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.querySelector('.nav-toggle');
+            const menu = document.querySelector('.nav-menu');
+            const themeToggle = document.getElementById('theme-toggle');
+            
+            // Mobile nav toggle
+            if (toggle) {
+                toggle.addEventListener('click', function() {
+                    menu.classList.toggle('active');
+                });
+            }
+            
+            // Theme toggle with animation
+            if (themeToggle) {
+                themeToggle.addEventListener('click', async function(e) {
+                    const isDark = document.documentElement.classList.contains(DARK_CLASS);
+                    const newTheme = isDark ? 'light' : 'dark';
+                    
+                    // Check if View Transitions API is supported
+                    if (!document.startViewTransition) {
+                        applyTheme(newTheme);
+                        localStorage.setItem(THEME_KEY, newTheme);
+                        return;
+                    }
+                    
+                    // Get button position for the circular animation
+                    const { top, left, width, height } = themeToggle.getBoundingClientRect();
+                    const x = left + width / 2;
+                    const y = top + height / 2;
+                    const maxRadius = Math.hypot(
+                        Math.max(left, window.innerWidth - left),
+                        Math.max(top, window.innerHeight - top)
+                    );
+                    
+                    // Start the view transition
+                    const transition = document.startViewTransition(() => {
+                        applyTheme(newTheme);
+                        localStorage.setItem(THEME_KEY, newTheme);
+                    });
+                    
+                    // Wait for transition to be ready, then animate
+                    await transition.ready;
+                    
+                    document.documentElement.animate(
+                        {
+                            clipPath: [
+                                `circle(0px at ${x}px ${y}px)`,
+                                `circle(${maxRadius}px at ${x}px ${y}px)`
+                            ]
+                        },
+                        {
+                            duration: 500,
+                            easing: 'ease-in-out',
+                            pseudoElement: '::view-transition-new(root)'
+                        }
+                    );
+                });
+            }
+            
+            // Update icon on load (in case it wasn't ready before)
+            updateIcon(getPreferredTheme());
+        });
+    })();
 </script>
+
