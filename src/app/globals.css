@@ -23,12 +23,62 @@
   --color-navbar-text: #ffffff;
   --color-border: #e0e0e0;
   --color-accent: #4a7c9b;
+  --color-code-bg: #f0f0f0;
 
   --shadow-card: 0 4px 30px rgba(0, 0, 0, 0.15);
   --shadow-card-hover: 0 8px 40px rgba(0, 0, 0, 0.2);
 
   --max-width: 900px;
   --navbar-height: 50px;
+}
+
+/* Dark Mode Variables */
+.dark {
+  --color-bg: #1a1a2e;
+  --color-card: #16213e;
+  --color-text: #e4e4e7;
+  --color-text-light: #a1a1aa;
+  --color-heading: #fafafa;
+  --color-link: #60a5fa;
+  --color-link-hover: #93c5fd;
+  --color-navbar: #0f0f23;
+  --color-navbar-text: #ffffff;
+  --color-border: #374151;
+  --color-accent: #60a5fa;
+  --color-code-bg: #1e293b;
+
+  --shadow-card: 0 4px 30px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* View Transitions API - Required for animated theme toggle */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--color-navbar-text);
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
 }
 
 * {
@@ -366,7 +416,7 @@ a:hover {
 }
 
 .post-content pre {
-  background-color: #f8f8f8;
+  background-color: var(--color-code-bg);
   padding: 15px 20px;
   border-radius: 3px;
   overflow-x: auto;
@@ -380,7 +430,7 @@ a:hover {
 }
 
 .post-content p>code {
-  background-color: #f0f0f0;
+  background-color: var(--color-code-bg);
   padding: 2px 6px;
   border-radius: 3px;
 }

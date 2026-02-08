@@ -6,6 +6,7 @@ import { siteConfig } from "@/lib/site.config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faUser, faEnvelope, faBars } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { AnimatedThemeToggler } from "./AnimatedThemeToggler";
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -48,6 +49,9 @@ export default function Header() {
                             <Link href="/contact" className="nav-link">
                                 <FontAwesomeIcon icon={faEnvelope} /> Contact
                             </Link>
+                        </li>
+                        <li className="nav-item">
+                            <AnimatedThemeToggler />
                         </li>
                     </ul>
                 </div>
