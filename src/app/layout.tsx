@@ -8,6 +8,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { DarkModeBackground } from "@/components/DarkModeBackground";
 import { siteConfig } from "@/lib/site.config";
 import Script from "next/script";
 
@@ -60,6 +61,8 @@ export default function RootLayout({
         </Script>
       </head>
       <body className={montserrat.className}>
+        {/* Flickering grid background for dark mode */}
+        <DarkModeBackground />
         <Header />
         <main className="main-content">{children}</main>
         <Footer />
@@ -67,3 +70,4 @@ export default function RootLayout({
     </html>
   );
 }
+

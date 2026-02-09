@@ -81,6 +81,23 @@
   transform: scale(0.95);
 }
 
+/* Dark Mode Flickering Grid Background */
+.dark-background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.flickering-grid-bg {
+  position: absolute;
+  inset: 0;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
