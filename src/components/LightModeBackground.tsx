@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Meteors } from "./Meteors";
+import { FlickeringGrid } from "./FlickeringGrid";
 
 export const LightModeBackground = () => {
     const [isLight, setIsLight] = useState(false);
@@ -27,13 +27,13 @@ export const LightModeBackground = () => {
 
     return (
         <div className="light-background-container">
-            <Meteors
-                number={30}
-                minDelay={0.5}
-                maxDelay={2}
-                minDuration={3}
-                maxDuration={8}
-                angle={215}
+            <FlickeringGrid
+                squareSize={4}
+                gridGap={6}
+                flickerChance={0.3}
+                color="rgb(100, 100, 100)" // Gray color for light mode
+                maxOpacity={0.15}
+                className="flickering-grid-bg"
             />
         </div>
     );
