@@ -1,8 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { PostMeta } from "@/lib/posts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt } from "@fortawesome/free-solid-svg-icons";
+import { MagicCard } from "./MagicCard";
 
 interface PostCardProps {
     post: PostMeta;
@@ -12,7 +15,7 @@ export default function PostCard({ post }: PostCardProps) {
     const postUrl = `/${post.categories[0]}/${post.slug}`;
 
     return (
-        <article className="post-card">
+        <MagicCard className="post-card">
             <Link href={postUrl} className="post-card-link">
                 <div className="post-card-image">
                     {post.image ? (
@@ -33,6 +36,6 @@ export default function PostCard({ post }: PostCardProps) {
                     <h3 className="post-card-title">{post.title}</h3>
                 </div>
             </Link>
-        </article>
+        </MagicCard>
     );
 }
