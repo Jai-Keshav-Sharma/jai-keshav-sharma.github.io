@@ -9,6 +9,7 @@ import remarkGfm from "remark-gfm";
 import AuthorBox from "@/components/AuthorBox";
 import Giscus from "@/components/Giscus";
 import { ScrollProgress } from "@/components/ScrollProgress";
+import { getMDXComponents } from "@/components/MDXComponents";
 
 interface PostPageProps {
     params: Promise<{ category: string; slug: string[] }>;
@@ -88,6 +89,7 @@ export default async function PostPage({ params }: PostPageProps) {
             <div className="post-content">
                 <MDXRemote
                     source={post.content}
+                    components={getMDXComponents()}
                     options={{
                         mdxOptions: {
                             remarkPlugins: [remarkGfm],
