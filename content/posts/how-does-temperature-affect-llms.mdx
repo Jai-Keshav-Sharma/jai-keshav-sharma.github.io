@@ -1,0 +1,196 @@
+---
+title: "How Does Temperature Affect LLMs?"
+date: 2026-02-21
+categories: [artificial-intelligence]
+tags: [llm, temperature, softmax, sampling, probability-distribution]
+author: "Jai Keshav Sharma"
+image: /images/posts/temperature_cover.png
+description: "Temperature changes the shape of probability distribution before sampling. Here's exactly how."
+---
+
+You've seen the `temperature` parameter everywhere. In the OpenAI playground. In every "how to use GPT" tutorial. In whatever prompt engineering course you mindlessly bookmarked last month.
+
+Every explanation goes something like: *"Higher temperature = more creative. Lower temperature = more predictable."*
+
+Cool. But *why*? What's actually happening inside the model?
+
+Today we're going to find out. And it's more interesting than the one-liner suggests.
+
+---
+
+## What Is Temperature in LLMs?
+
+Let's start with the most obvious symptom.
+
+A **low** temperature value produces identical responses from the LLM. Run the same prompt twice — get the same answer twice.
+
+```python
+response = openai_client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Continue this: In 2013,..."}
+             ],
+    temperature=0.1**50
+)
+
+print(response.choices[0].message.content)
+```
+
+<p align="center">
+<img src="/images/posts/temp_low_result.png" alt="Low temperature: identical outputs" style={{maxWidth: "100%", width: "700px", borderRadius: "8px"}} />
+</p>
+
+Run it again. Same prompt, same temperature. You get the exact same response. Every. Single. Time.
+
+But crank that temperature to `2`, and things get... chaotic.
+
+```python
+response = openai_client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Continue this: In 2013,..."}],
+    temperature=2
+)
+
+print(response.choices[0].message.content)
+```
+
+<p align="center">
+<img src="/images/posts/temp_high_result.png" alt="High temperature: gibberish output" style={{maxWidth: "100%", width: "700px", borderRadius: "8px"}} />
+</p>
+
+That's not a bug. That's temperature working exactly as designed. The model isn't broken — it's *very, very random*.
+
+So what's going on under the hood?
+
+---
+
+## First, A Quick Detour: How Classification Models Work
+
+Before we look at LLMs, let's revisit good old classification models.
+
+Traditional classification models use **softmax** to convert raw logits into probabilities over all classes. In LLMs, the output layer spans the entire vocabulary — every possible token.
+
+The difference is that a traditional classification model predicts the class with the **highest softmax score**, which makes it deterministic.
+
+**But LLMs *sample* the prediction from these softmax probabilities.**
+
+<p align="center">
+<img src="/images/posts/classification_sampling.png" alt="Classification model: output layer to logits to softmax to prediction" style={{maxWidth: "100%", width: "650px"}} />
+</p>
+
+The difference is that a traditional classification model predicts the class with the highest softmax score — which makes it **deterministic**.
+
+But LLMs **sample** the prediction from these softmax probabilities:
+
+<p align="center">
+<img src="/images/posts/llm_sampling.png" alt="LLM token sampling from softmax distribution" style={{maxWidth: "100%", width: "650px"}} />
+</p>
+
+Thus, even though `Token 1` has the highest probability of being selected (`0.86`), it may not be chosen as the next token — since we're *sampling*, not just picking the max.
+
+This is what makes LLM outputs variable even before temperature enters the picture.
+
+---
+
+## Now, Enter Temperature
+
+> **Temperature changes the shape of probability distribution before sampling.**
+
+Here's the exact tweak it introduces to the softmax function:
+
+<p align="center">
+<img src="/images/posts/temperature_formula.jpg" alt="Traditional softmax vs Temperature-adjusted softmax" style={{maxWidth: "100%", width: "600px"}} />
+</p>
+
+Just one change: divide the logits by `T` before exponentiating. One letter. One denominator. Dramatic effects.
+
+---
+
+### 1) Low Temperature → Peaked Distribution
+
+When `T` is tiny (say, `0.01`):
+
+```python
+T = 0.01
+a = np.array([1, 2, 3, 4])
+
+>>> softmax(a)
+array([0.03, 0.09, 0.24, 0.64])
+
+>>> softmax(a/T)
+array([5.12e-131, 1.38e-087, 3.72e-044, 1.00e+000])
+```
+
+All probability mass collapses onto the token with the highest logit. The value `1.00e+000` = 1.0, meaning essentially **100% probability**.
+
+- This means the sampling process will almost certainly choose the token with the highest probability.
+- This makes the generation process look **greedy and (almost) deterministic.**
+
+---
+
+### 2) High Temperature → Uniform Distribution
+
+When `T` is enormous (say, `10,000,000,000`):
+
+```python
+T = 10000000000
+a = np.array([1, 2, 3, 4])
+
+>>> softmax(a)
+array([0.03, 0.09, 0.24, 0.64])
+
+>>> softmax(a/T)
+array([0.25, 0.25, 0.25, 0.25])
+```
+
+The distribution becomes completely flat — every token becomes equally likely.
+
+- This means the sampling process may select *any* token.
+- This makes the generation process **random and heavily stochastic.**
+
+Welcome to the gibberish we witnessed earlier.
+
+---
+
+## Best Practices
+
+- **Set a low temperature** for predictable, consistent responses — factual Q&A, code generation, structured output.
+- **Set a high temperature** for more random and creative responses — brainstorming, story generation, ideation.
+- **An extremely high temperature** rarely has real utility — as we saw at the top, it just produces incoherent noise.
+
+---
+
+## A Quick Note (The Catch You Didn't Ask For)
+
+> ⚠️ In practice, the model can generate different outputs even if `temperature=0`. This is because there are still several other sources of randomness, such as race conditions in multithreaded code.
+
+So `temperature=0` doesn't mean *perfectly* deterministic — just *as* deterministic as reasonably possible.
+
+---
+
+## TL;DR (For The Scroll-Happy)
+
+1. **LLMs sample** from probability distributions — they don't always pick the most likely token.
+2. **Temperature scales the logits** before softmax, changing the *shape* of the distribution.
+3. **Low temperature** → peaked distribution → greedy, predictable output.
+4. **High temperature** → flat, uniform distribution → random, chaotic output.
+5. **`temperature=0` isn't perfectly deterministic** — other sources of randomness still exist.
+
+---
+
+## Final Thoughts
+
+Temperature isn't magic. It's just one division operation buried inside your softmax. A single `T` sitting in the denominator, quietly deciding how unhinged your model gets.
+
+The next time someone tells you "just set a higher temperature for creativity" — you'll know they mean: *make the probability distribution flatter so the sampling gets wilder.*
+
+Same thing. But now you actually understand it.
+
+---
+
+*Found this useful? Share it with someone who's been blindly setting `temperature=0.7` and hoping for the best.*
+
+---
+
+**Further Reading:**
+
+- [Full Notebook — Temperature in LLMs](https://colab.research.google.com/drive/1D0u1K_nHDqWf0iIP2WgeDqRNlCfn17wa?usp=sharing)
