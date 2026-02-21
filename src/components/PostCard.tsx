@@ -29,12 +29,10 @@ export default function PostCard({ post }: PostCardProps) {
                             <Image
                                 src={post.image.startsWith("/") ? post.image : `/${post.image}`}
                                 alt={post.title}
-                                width={300}
-                                height={150}
+                                fill
+                                sizes="(max-width: 768px) 100vw, 33vw"
                                 style={{
                                     objectFit: "cover",
-                                    width: "100%",
-                                    height: "100%",
                                     opacity: isImageLoaded ? 1 : 0,
                                     transition: "opacity 0.3s ease-in-out",
                                 }}
