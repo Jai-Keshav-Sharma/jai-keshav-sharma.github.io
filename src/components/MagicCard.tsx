@@ -109,7 +109,7 @@ export function MagicCard({
             />
             {/* Content - padded to account for border */}
             <div
-                className="relative rounded-xl"
+                className="relative h-full rounded-xl"
                 style={{
                     margin: `${borderWidth}px`,
                 }}
